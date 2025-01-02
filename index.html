@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mogu Mogu Product Search</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/inter" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-indigo-100 p-5">
+
+    <div class="max-w-lg mx-auto">
+        <h1 class="text-2xl font-bold mb-4 text-indigo-800">Mogu Mogu Product Search</h1>
+        <div class="relative mb-6">
+            <input type="text" id="searchInput"
+                class="border border-indigo-300 rounded-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Search for Mogu Mogu products..." oninput="filterProducts()">
+            <i class="fas fa-search absolute top-2 right-3 text-gray-500"></i>
+        </div>
+
+        <div id="productList" class="grid grid-cols-1 gap-4">
+            <!-- Product items will be dynamically injected here -->
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, title: "Mogu Mogu Lychee Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "lychee, nata de coco", image: "Mogu Mogu Lychee Drink with Nata de Coco.jpg" },
+            { id: 2, title: "Mogu Mogu Peach Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "peach, nata de coco", image: "Mogu Mogu Peach Drink with Nata de Coco.jpg" },
+            { id: 3, title: "Mogu Mogu Pink Guava Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "guava, nata de coco", image: "Mogu Mogu Pink Guava Drink with Nata de Coco.jpg" },
+            { id: 4, title: "Mogu Mogu Passion Fruit Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "passion fruit, nata de coco", image: "Mogu Mogu Passion Fruit Drink with Nata de Coco.jpg" },
+            { id: 5, title: "Mogu Mogu Coconut Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "coconut, nata de coco", image: "Mogu Mogu Coconut Drink with Nata de Coco.jpg" },
+            { id: 6, title: "Mogu Mogu Watermelon Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "watermelon, nata de coco", image: "Mogu Mogu Watermelon Drink with Nata de Coco.jpg" },
+            { id: 7, title: "Mogu Mogu Pineapple Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "pineapple, nata de coco", image: "Mogu Mogu Pineapple Drink with Nata de Coco.jpg" },
+            { id: 8, title: "Mogu Mogu Grape Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "grape, nata de coco", image: "Mogu Mogu Grape Drink with Nata de Coco.jpg" },
+            { id: 9, title: "Mogu Mogu Mango Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "mango, nata de coco", image: "Mogu Mogu Mango Drink with Nata de Coco.jpg" },
+            { id: 10, title: "Mogu Mogu Strawberry Drink with Nata de Coco", category: "Drink", price: "50.00", tags: "strawberry, nata de coco", image: "Mogu Mogu Strawberry Drink with Nata de Coco.jpg" }
+        ];
+
+        function displayProducts(filteredProducts) {
+            const productList = document.getElementById('productList');
+            productList.innerHTML = ''; // Clear previous results
+            filteredProducts.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'flex items-center bg-indigo-200 p-4 rounded-lg shadow-md border-2 border-indigo-500 text-indigo-800';
+                productDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}" class="w-24 h-24 object-contain bg-white rounded border border-indigo-500 mr-4"> 
+                    <div>
+                        <h3 class="font-semibold">${product.title}</h3>
+                        <p class="flex items-center text-indigo-600"><i class="fas fa-glass-whiskey mr-2"></i>${product.category}</p> <!-- Category icon -->
+                        <p class="text-lg font-bold flex items-center"><i class="fas fa-peso-sign mr-2"></i>${product.price}</p> <!-- Price icon -->
+                    </div>
+                `;
+                productList.appendChild(productDiv);
+            });
+        }
+
+        function filterProducts() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const filteredProducts = products.filter(product =>
+                product.title.toLowerCase().includes(searchInput) ||
+                product.tags.toLowerCase().includes(searchInput)
+            );
+            displayProducts(filteredProducts);
+        }
+
+        // Initial display of all products
+        displayProducts(products);
+    </script>
+
+</body>
+
+</html>
